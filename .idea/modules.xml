@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/data-service/data-service.iml" filepath="$PROJECT_DIR$/data-service/data-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-svc-sys-scala.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-svc-sys-scala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-svc-sys-scala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-svc-sys-scala-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thrift-service-lib/thrift-service.iml" filepath="$PROJECT_DIR$/thrift-service-lib/thrift-service.iml" />
+    </modules>
+  </component>
+</project>
