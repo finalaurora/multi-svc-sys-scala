@@ -31,18 +31,18 @@ object DataServiceApp extends App {
   props.setProperty("ssl", "false")
   logger.info("Postgres connector")
   try {
-    classOf[org.postgresql.Driver]
+//    classOf[org.postgresql.Driver]
     val conn = DriverManager.getConnection(url, props)
     val statement = conn.createStatement()
     val sql =
-      s"INSERT INTO lead_tbl ($COL_ID,$COL_FIRST,$COL_LAST, $COL_EMAIL, $COL_PHONE,$COL_SRC, $COL_STATUS,$COL_CREATED, $COL_UPDATED)" +
-        "VALUES (1, 'Jack' , 'Shaw', 'jshaw@techno.vr', '123-1234-123','google.com','LOOKING_FOR_RENTAL','2020-11-27 04:05:06','2020-11-27 04:05:06')"
+      s"INSERT INTO lead_tbl ($COL_ID, $COL_FIRST, $COL_LAST, $COL_EMAIL, $COL_PHONE, $COL_SRC, $COL_STATUS, $COL_CREATED, $COL_UPDATED) " +
+        "VALUES (1, 'Jack', 'Shaw', 'jshaw@techno.vr', '123-1234-123', 'google.com', 'LOOKING_FOR_RENTAL', '2020-11-27 04:05:06', '2020-11-27 04:05:06')"
     statement.executeUpdate(sql)
     val stm = conn.createStatement()
     val rs: ResultSet = stm.executeQuery("SELECT * FROM lead_tbl")
-    var leads = LinearSeq[Lead]()
+    val leads = LinearSeq[Lead]()
+    val lead = new Lead()
     while (rs.next()) {
-      var lead = new Lead()
       lead.setId(rs.getLong(s"$COL_ID"))
       lead.setFirstName(rs.getString(s"$COL_FIRST"))
       lead.setLastName(rs.getString(s"$COL_LAST"))
@@ -53,16 +53,15 @@ object DataServiceApp extends App {
       lead.setCreatedDate(
         rs.getTimestamp(s"$COL_CREATED").toInstant.getEpochSecond
       )
-      lead.setCreatedDate(
+      lead.setUpdatedDate(
         rs.getTimestamp(s"$COL_UPDATED").toInstant.getEpochSecond
       )
       leads :+ lead
       logger.info("Lead info, {}", lead)
     }
   } catch {
-    case e: SQLException => {
+    case e: SQLException =>
       logger.error("SQL Exception, Exception:", e)
-    }
   }
   val server: ThriftServer = new ThriftServer
   server.doWork()
